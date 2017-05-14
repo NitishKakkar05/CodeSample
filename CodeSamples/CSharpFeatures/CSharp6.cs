@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using static System.Math;
+using static System.Console;
 
 namespace CodeSamples
 {
@@ -70,6 +69,53 @@ namespace CodeSamples
         public void WriteMessageEx1() => Console.WriteLine($"Message is \"important\" {Message} ");
         public void WriteMessageEx2() => Console.WriteLine($"Message is {(string.IsNullOrWhiteSpace(Message) ? "empty" : "Not empty")} ");
 
+        /// <summary>
+        /// Usings the static feature.
+        /// </summary>
+        public void UsingStaticFeature()
+        {
+            var power = Pow(2, 2);
+            WriteLine(power);
+        }
+
+        /// <summary>
+        /// Null Conditional operator.
+        /// </summary>
+        public void NullConditionalOPerator()
+        {
+            string name = null;
+            var length = name?.Length;
+            Console.WriteLine(length);
+        }
+
+        private static void FirstMethod() => SecondMethod();
+
+        private static void SecondMethod() => ThirdMethod();
+
+        private static void ThirdMethod() => ForthMethod();
+
+        private static void ForthMethod()
+        {
+            throw new ArgumentException(message: "Message", innerException: new ArgumentNullException("ArgumentNullException"));
+        }
+
+        /// <summary>
+        /// Exceptions the filters.
+        /// </summary>
+        /// <exception cref="System.ArgumentException"></exception>
+        /// <exception cref="System.ArgumentNullException">ArgumentNullException</exception>
+        public void ExceptionFilters()
+        {
+            try
+            {
+                FirstMethod();
+            }
+            catch (Exception ex) when(ex.InnerException !=null)
+            {
+                Console.WriteLine(ex.Message);
+                throw ex;
+            }
+        }
 
 
     }
